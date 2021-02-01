@@ -7,14 +7,19 @@
 buffer_circle(point, radius, ...)
 }
 \arguments{
-\item{point}{Centre point of the buffer}
+\item{point}{Cente point of the buffer, must equal to true in: sf::st_is(point, "POINT")}
 
-\item{radius}{numeric}
+\item{radius}{Radius of the buffer (numeric)}
+
+\item{...}{Further arguments to give to sf::st_buffer()}
 }
 \description{
 Creates a circular buffer. Wrapper around sf::st_buffer()
 }
 \examples{
-buffer_circle()
+example_point = sf::st_point(c(1,2))
+example_point = sf::st_sfc(example_point)
+
+plot(buffer_circle(example_point, 200))
 }
 \keyword{cats}

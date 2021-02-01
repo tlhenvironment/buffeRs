@@ -2,25 +2,31 @@
 % Please edit documentation in R/buffer_windrose.R
 \name{buffer_windrose}
 \alias{buffer_windrose}
-\title{A wedge Function}
+\title{A wind-rose shaped buffer function}
 \usage{
-buffer_windrose(
-  point,
-  wind_frequency_df,
-  radius = 100,
-  m_s_scaling_normalization = 1,
-  width_factor = 2
-)
+buffer_windrose(point, wind_frequency_df, radius = 100, width_factor = 2)
 }
 \arguments{
-\item{radius}{Do you love cats? Defaults to TRUE.}
+\item{point}{Centre point of the buffer, must equal to true in: sf::st_is(point, "POINT")}
 
-\item{love}{Do you love cats? Defaults to TRUE.}
+\item{wind_frequency_df}{A wind frequency table, in the format provided by \code{"openair::windRose(wind_sample)$data"}}
+
+\item{radius}{radius of the buffer (numeric). The radius of the largest sub-wedge of the wind-rose shaped buffer.}
+
+\item{width_factor}{Scaling factor of the width of sub-wedges (numeric). Smaller number (<1) emphasize less-dominant wind-directions, (>1) emphasize dominant wind-directions.}
 }
 \description{
-This function allows you to express your love of cats.
+\code{buffer_windrose} creates a wind-rose based buffer shape.
 }
 \examples{
-wedge()
+example_point = sf::st_point(c(1,2))
+example_point = sf::st_sfc(example_point)
+
+openair::windRose(wind_sample) -> wind_sample_wind_rose
+wind_sample_wind_rose$data -> wind_frequency_df
+
+plot(buffer_windrose(example_point, wind_frequency_df, radius = 100, width_factor = 0.5))
 }
-\keyword{cats}
+\keyword{Wind-rose,}
+\keyword{buffer}
+\keyword{wind,}

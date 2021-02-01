@@ -1,19 +1,24 @@
 #' A wedge Function
 #'
 #' Creates a wedge polygon 
-#' @param point An sf variable, \code{\link[sf]{st_is(point, "POINT")}} must be TRUE.
-#' @param radius numeric
-#' @param degree numeric; must be between 0 and 360. The angle at which the wedge is centred (clockwise).
-#' @param degree_width numeric; must be between 0 and 360. The width of the wedge.
+#' @param point Centre point of the buffer, must equal to true in: sf::st_is(point, "POINT")
+#' @param radius Radius of the buffer (numeric)
+#' @param degree The angle at which the wedge is centred (clockwise). Must be between 0 and 360 (numeric). 
+#' @param degree_width Width of the wedge. Must be between 0 and 360 (numeric). 
 #' @keywords wedge
 #' @export
-#' @examples buffer_wedge()
+#' @examples
+#' example_point = sf::st_point(c(1,2))
+#' example_point = sf::st_sfc(example_point)
+#' 
+#' plot(buffer_wedge(example_point, 200, 90, 45))
 #' @export
 
 buffer_wedge <- function(point, radius, degree, degree_width){
 
+# browser()
   #Error handlers for input type
-  if(nrow(point) != 1){
+  if(length(point) != 1){
     stop("Input one point of class sf")
   }
 
@@ -48,6 +53,7 @@ buffer_wedge <- function(point, radius, degree, degree_width){
   pts_df[1,1] <- point_coordinates[1]
   pts_df[1,2] <- point_coordinates[2]
   
+  #set the first points
   pts_df[2,1] <- radius*cos(-radians[1]) + point_coordinates[1]
   pts_df[2,2] <- radius*sin(-radians[1]) + point_coordinates[2]
   

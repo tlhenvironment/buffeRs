@@ -1,11 +1,16 @@
 #' A circule function
 #'
 #' Creates a circular buffer. Wrapper around sf::st_buffer()
-#' @param point Centre point of the buffer
-#' @param radius numeric
+#' @param point Cente point of the buffer, must equal to true in: sf::st_is(point, "POINT")
+#' @param radius Radius of the buffer (numeric)
+#' @param ... Further arguments to give to sf::st_buffer()
 #' @keywords cats
 #' @export
-#' @examples buffer_circle()
+#' @examples 
+#' example_point = sf::st_point(c(1,2))
+#' example_point = sf::st_sfc(example_point)
+#' 
+#' plot(buffer_circle(example_point, 200))
 #' @export
 
 buffer_circle <- function(point, radius, ...){
@@ -21,7 +26,7 @@ buffer_circle <- function(point, radius, ...){
 
 
   #function starts
-  circular_buffer <- sf::st_buffer(x = point, dist = readius, ...)
+  circular_buffer <- sf::st_buffer(x = point, dist = radius, ...)
   return(circular_buffer)
 
 }

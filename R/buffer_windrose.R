@@ -1,18 +1,28 @@
-#' A wedge Function
+#' A wind-rose shaped buffer function
 #'
-#' This function allows you to express your love of cats.
-#' @param love Do you love cats? Defaults to TRUE.
-#' @param radius Do you love cats? Defaults to TRUE.
-#' @keywords cats
+#' @description
+#' `buffer_windrose` creates a wind-rose based buffer shape.
+#' 
+#' @param point Centre point of the buffer, must equal to true in: sf::st_is(point, "POINT")
+#' @param wind_frequency_df A wind frequency table, in the format provided by \code{"openair::windRose(wind_sample)$data"}
+#' @param radius radius of the buffer (numeric). The radius of the largest sub-wedge of the wind-rose shaped buffer.
+#' @param width_factor Scaling factor of the width of sub-wedges (numeric). Smaller number (<1) emphasize less-dominant wind-directions, (>1) emphasize dominant wind-directions. 
+#' @keywords Wind-rose, wind, buffer
 #' @export
-#' @examples wedge()
+#' @examples
+#' example_point = sf::st_point(c(1,2))
+#' example_point = sf::st_sfc(example_point)
+#' 
+#' openair::windRose(wind_sample) -> wind_sample_wind_rose
+#' wind_sample_wind_rose$data -> wind_frequency_df
+#' 
+#' plot(buffer_windrose(example_point, wind_frequency_df, radius = 100, width_factor = 0.5))
 #' @export
 
-buffer_windrose <- function(point, wind_frequency_df, radius = 100, 
-  m_s_scaling_normalization = 1, width_factor = 2){
+buffer_windrose <- function(point, wind_frequency_df, radius = 100, width_factor = 2){
   
   #Error handlers for input type
-  if(nrow(point) != 1){
+  if(length(point) != 1){
     stop("Input one point of class sf")
   }
 
@@ -23,22 +33,6 @@ buffer_windrose <- function(point, wind_frequency_df, radius = 100,
   mean_ws <- as.numeric(unique(wind_frequency_df$panel.fun))
 
   #function starts
-  if(m_s_scaling_normalization == "auto"){
-    m_s_scaling_normalization <- mean_ws
-  }
-
-  ##calculate percentage of mean_ws to scaling normalization (m/s)
-  mean_ws / m_s_scaling_normalization -> scaling_by_strength
-
-  #make sure can't be higher than original buffer size
-  # if(m_s_scaling_normalization < mean_ws) scaling_by_strength <- 1
-  
-  ##scaling_by_strength_smoothing
-  scaling_by_strength_smoothing(scaling_by_strength) -> scaling_by_strength_smoothed
-  
-  ##calculating scaling factor
-  scaling_by_strength_smoothed * radius -> scaling_to_normalization
-  message(scaling_to_normalization)
   
   for (i in 1:nrow(wind_frequency_df)){
   #reconstruct the values dynamic wedge needs to from windrose
@@ -53,7 +47,7 @@ buffer_windrose <- function(point, wind_frequency_df, radius = 100,
     round(wind_frequency_df$Interval3[i] * width_factor) -> degree_width
     if (degree_width < 16){degree_width <- 16}
     
-    (wind_frequency_df$freqs[i] / max(wind_frequency_df$freqs)) * (scaling_to_normalization) ->  wedge_radius #in m
+    (wind_frequency_df$freqs[i] / max(wind_frequency_df$freqs)) * (radius) ->  wedge_radius #in m
 
   #create the wedge
     buffer_wedge(point, wedge_radius, degree, degree_width) -> wedge_sf

@@ -1,19 +1,19 @@
 Package: buffeRs
 Title: Buffer generation for spatial models
-Version: 0.7
-Date: 2021-01-28
+Version: 0.8
+Date: 2021-02-01
 Authors@R: 
     person(given = "Tilman Leo",
            family = "Hohenberger",
            role = c("aut", "cre"),
            email = "tlh@ust.hk",
            comment = c(ORCID = "0000-0002-4372-8750"))
-Description: buffeRs generates simple feature buffer geometries.
+Description: buffeRs generates simple feature geometries e.g. for the use as buffers in model-building.
 Imports:
     sf
 Suggests:
     openair
-License: use_mit_license()
+License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

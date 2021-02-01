@@ -7,18 +7,21 @@
 buffer_wedge(point, radius, degree, degree_width)
 }
 \arguments{
-\item{point}{An sf variable, \code{\link[sf]{st_is(point, "POINT")}} must be TRUE.}
+\item{point}{Centre point of the buffer, must equal to true in: sf::st_is(point, "POINT")}
 
-\item{radius}{numeric}
+\item{radius}{Radius of the buffer (numeric)}
 
-\item{degree}{numeric; must be between 0 and 360. The angle at which the wedge is centred (clockwise).}
+\item{degree}{The angle at which the wedge is centred (clockwise). Must be between 0 and 360 (numeric).}
 
-\item{degree_width}{numeric; must be between 0 and 360. The width of the wedge.}
+\item{degree_width}{Width of the wedge. Must be between 0 and 360 (numeric).}
 }
 \description{
 Creates a wedge polygon
 }
 \examples{
-buffer_wedge()
+example_point = sf::st_point(c(1,2))
+example_point = sf::st_sfc(example_point)
+
+plot(buffer_wedge(example_point, 200, 90, 45))
 }
 \keyword{wedge}
