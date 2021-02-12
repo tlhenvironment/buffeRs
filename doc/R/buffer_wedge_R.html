@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>buffer_wedge.R - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../DESCRIPTION.html">DESCRIPTION</a>
+  
+    <li class="file"><a href="../NAMESPACE.html">NAMESPACE</a>
+  
+    <li class="file"><a href="../R/buffer_circle_R.html">buffer_circle.R</a>
+  
+    <li class="file"><a href="../R/buffer_semicircle_R.html">buffer_semicircle.R</a>
+  
+    <li class="file"><a href="../R/buffer_wedge_R.html">buffer_wedge.R</a>
+  
+    <li class="file"><a href="../R/buffer_windrose_R.html">buffer_windrose.R</a>
+  
+    <li class="file"><a href="../R/cat_function_R.html">cat_function.R</a>
+  
+    <li class="file"><a href="../R/data_R.html">data.R</a>
+  
+    <li class="file"><a href="../R/scaling_by_strength_smoothing_R.html">scaling_by_strength_smoothing.R</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../man/buffer_circle_Rd.html">buffer_circle.Rd</a>
+  
+    <li class="file"><a href="../man/buffer_semicircle_Rd.html">buffer_semicircle.Rd</a>
+  
+    <li class="file"><a href="../man/buffer_wedge_Rd.html">buffer_wedge.Rd</a>
+  
+    <li class="file"><a href="../man/buffer_windrose_Rd.html">buffer_windrose.Rd</a>
+  
+    <li class="file"><a href="../man/cat_function_Rd.html">cat_function.Rd</a>
+  
+    <li class="file"><a href="../man/wind_sample_Rd.html">wind_sample.Rd</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>#&#39; A wedge Function #&#39; #&#39; Creates a wedge polygon  #&#39;
+@param Centre point of the buffer, must equal to true in: sf::st_is(point,
+“POINT”) #&#39; @param Radius radius of the buffer, (numeric) #&#39; @param
+The angle at which the wedge is centred (clockwise). Must be between 0 and
+360 (numeric).  #&#39; @param The width of the wedge; must be between 0 and
+360 (numeric) #&#39; @keywords wedge #&#39; @export #&#39; @examples #&#39;
+example_point = sf::st_point(c(1,2)) #&#39; example_point =
+sf::st_sfc(example_point) #&#39;  #&#39; plot(buffer_wedge(example_point,
+200, 90, 45)) #&#39; @export</p>
+
+<p>buffer_wedge &lt;- function(point, radius, degree, degree_width){</p>
+
+<p># browser()</p>
+
+<pre class="ruby"><span class="ruby-comment">#Error handlers for input type</span>
+<span class="ruby-keyword">if</span>(<span class="ruby-identifier">length</span>(<span class="ruby-identifier">point</span>) <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>){
+  <span class="ruby-identifier">stop</span>(<span class="ruby-string">&quot;Input one point of class sf&quot;</span>)
+}
+
+<span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">sf</span><span class="ruby-operator">::</span><span class="ruby-identifier">st_is</span>(<span class="ruby-identifier">point</span>, <span class="ruby-string">&quot;POINT&quot;</span>)){
+  <span class="ruby-identifier">stop</span>(<span class="ruby-string">&quot;Input one point of class sf&quot;</span>)
+}
+
+<span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">is</span>.<span class="ruby-identifier">numeric</span>(<span class="ruby-identifier">degree</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">degree</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">degree</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">360</span>){
+  <span class="ruby-identifier">stop</span>(<span class="ruby-string">&quot;Input degree as numeric between 0 and 360&quot;</span>)
+}
+
+<span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">is</span>.<span class="ruby-identifier">numeric</span>(<span class="ruby-identifier">degree_width</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">degree_width</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">degree_width</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">360</span>){
+  <span class="ruby-identifier">stop</span>(<span class="ruby-string">&quot;Input degree_width as numeric between 0 and 360&quot;</span>)
+}
+<span class="ruby-comment">#error handler if degree_width is very small</span>
+<span class="ruby-keyword">if</span>(<span class="ruby-identifier">degree_width</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>){
+  <span class="ruby-identifier">warning</span>(<span class="ruby-string">&quot;Degree is smaller than 1, set degree to 1&quot;</span>)
+  <span class="ruby-identifier">degree_width</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+  }
+
+<span class="ruby-comment">#function starts</span>
+<span class="ruby-identifier">point_coordinates</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">sf</span><span class="ruby-operator">::</span><span class="ruby-identifier">st_coordinates</span>(<span class="ruby-identifier">point</span>)
+
+<span class="ruby-identifier">angles</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">c</span>(<span class="ruby-identifier">degree</span><span class="ruby-operator">-</span><span class="ruby-identifier">degree_width</span> <span class="ruby-operator">-</span> <span class="ruby-value">90</span>, <span class="ruby-identifier">degree</span><span class="ruby-operator">+</span><span class="ruby-identifier">degree_width</span> <span class="ruby-operator">-</span> <span class="ruby-value">90</span>)
+<span class="ruby-identifier">radians</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">angles</span> <span class="ruby-operator">*</span> <span class="ruby-value">0.0174532925</span>
+
+<span class="ruby-comment">#create an empty matrix</span>
+<span class="ruby-identifier">pts_df</span> = <span class="ruby-identifier">as</span>.<span class="ruby-identifier">data</span>.<span class="ruby-identifier">frame</span>(<span class="ruby-identifier">matrix</span>(<span class="ruby-identifier">nrow</span> = <span class="ruby-value">1</span><span class="ruby-operator">+</span><span class="ruby-identifier">degree_width</span><span class="ruby-operator">*</span><span class="ruby-value">2</span>, <span class="ruby-identifier">ncol</span> = <span class="ruby-value">2</span>))
+<span class="ruby-identifier">colnames</span>(<span class="ruby-identifier">pts_df</span>) <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">c</span>(<span class="ruby-string">&quot;x&quot;</span>, <span class="ruby-string">&quot;y&quot;</span>)
+
+<span class="ruby-comment">#set the starting points</span>
+<span class="ruby-identifier">pts_df</span>[<span class="ruby-value">1</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">point_coordinates</span>[<span class="ruby-value">1</span>]
+<span class="ruby-identifier">pts_df</span>[<span class="ruby-value">1</span>,<span class="ruby-value">2</span>] <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">point_coordinates</span>[<span class="ruby-value">2</span>]
+
+<span class="ruby-comment">#set the first points</span>
+<span class="ruby-identifier">pts_df</span>[<span class="ruby-value">2</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">radius</span><span class="ruby-operator">*</span><span class="ruby-identifier">cos</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">radians</span>[<span class="ruby-value">1</span>]) <span class="ruby-operator">+</span> <span class="ruby-identifier">point_coordinates</span>[<span class="ruby-value">1</span>]
+<span class="ruby-identifier">pts_df</span>[<span class="ruby-value">2</span>,<span class="ruby-value">2</span>] <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">radius</span><span class="ruby-operator">*</span><span class="ruby-identifier">sin</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">radians</span>[<span class="ruby-value">1</span>]) <span class="ruby-operator">+</span> <span class="ruby-identifier">point_coordinates</span>[<span class="ruby-value">2</span>]
+
+<span class="ruby-comment">#set the last points</span>
+<span class="ruby-identifier">pts_df</span>[<span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>),<span class="ruby-value">1</span>] <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">radius</span><span class="ruby-operator">*</span><span class="ruby-identifier">cos</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">radians</span>[<span class="ruby-value">2</span>]) <span class="ruby-operator">+</span> <span class="ruby-identifier">point_coordinates</span>[<span class="ruby-value">1</span>]
+<span class="ruby-identifier">pts_df</span>[<span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>),<span class="ruby-value">2</span>] <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">radius</span><span class="ruby-operator">*</span><span class="ruby-identifier">sin</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">radians</span>[<span class="ruby-value">2</span>]) <span class="ruby-operator">+</span> <span class="ruby-identifier">point_coordinates</span>[<span class="ruby-value">2</span>]
+
+<span class="ruby-comment">#set all intermediate points</span>
+<span class="ruby-keyword">for</span>(<span class="ruby-identifier">i</span> <span class="ruby-keyword">in</span> <span class="ruby-value">3</span><span class="ruby-operator">:</span><span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>)<span class="ruby-operator">-</span><span class="ruby-value">1</span>){
+  <span class="ruby-identifier">pts_df</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">radius</span><span class="ruby-operator">*</span><span class="ruby-identifier">cos</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">radians</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">*</span> (<span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span>)<span class="ruby-operator">/</span><span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">radians</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">*</span> (<span class="ruby-identifier">i</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>))) <span class="ruby-operator">+</span> <span class="ruby-identifier">point_coordinates</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-identifier">pts_df</span>[<span class="ruby-identifier">i</span>,<span class="ruby-value">2</span>] <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">radius</span><span class="ruby-operator">*</span><span class="ruby-identifier">sin</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">radians</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">*</span> (<span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span>)<span class="ruby-operator">/</span><span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">radians</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">*</span> (<span class="ruby-identifier">i</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">pts_df</span>))) <span class="ruby-operator">+</span> <span class="ruby-identifier">point_coordinates</span>[<span class="ruby-value">2</span>]
+}
+
+<span class="ruby-comment">#convert to sf</span>
+<span class="ruby-identifier">pts_sf</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">sf</span><span class="ruby-operator">::</span><span class="ruby-identifier">st_as_sf</span>(<span class="ruby-identifier">pts_df</span>, <span class="ruby-identifier">coords</span> = <span class="ruby-identifier">c</span>(<span class="ruby-string">&quot;x&quot;</span>, <span class="ruby-string">&quot;y&quot;</span>), <span class="ruby-identifier">crs</span> = <span class="ruby-identifier">sf</span><span class="ruby-operator">::</span><span class="ruby-identifier">st_crs</span>(<span class="ruby-identifier">point</span>))
+
+<span class="ruby-comment">##create the convex hull</span>
+<span class="ruby-identifier">wedge_sf</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">sf</span><span class="ruby-operator">::</span><span class="ruby-identifier">st_convex_hull</span>(<span class="ruby-identifier">sf</span><span class="ruby-operator">::</span><span class="ruby-identifier">st_union</span>(<span class="ruby-identifier">pts_sf</span>))
+
+<span class="ruby-comment">#return</span>
+<span class="ruby-keyword">return</span>(<span class="ruby-identifier">wedge_sf</span>)
+</pre>
+
+<p>}</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

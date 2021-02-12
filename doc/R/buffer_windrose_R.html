@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>buffer_windrose.R - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../DESCRIPTION.html">DESCRIPTION</a>
+  
+    <li class="file"><a href="../NAMESPACE.html">NAMESPACE</a>
+  
+    <li class="file"><a href="../R/buffer_circle_R.html">buffer_circle.R</a>
+  
+    <li class="file"><a href="../R/buffer_semicircle_R.html">buffer_semicircle.R</a>
+  
+    <li class="file"><a href="../R/buffer_wedge_R.html">buffer_wedge.R</a>
+  
+    <li class="file"><a href="../R/buffer_windrose_R.html">buffer_windrose.R</a>
+  
+    <li class="file"><a href="../R/cat_function_R.html">cat_function.R</a>
+  
+    <li class="file"><a href="../R/data_R.html">data.R</a>
+  
+    <li class="file"><a href="../R/scaling_by_strength_smoothing_R.html">scaling_by_strength_smoothing.R</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../man/buffer_circle_Rd.html">buffer_circle.Rd</a>
+  
+    <li class="file"><a href="../man/buffer_semicircle_Rd.html">buffer_semicircle.Rd</a>
+  
+    <li class="file"><a href="../man/buffer_wedge_Rd.html">buffer_wedge.Rd</a>
+  
+    <li class="file"><a href="../man/buffer_windrose_Rd.html">buffer_windrose.Rd</a>
+  
+    <li class="file"><a href="../man/cat_function_Rd.html">cat_function.Rd</a>
+  
+    <li class="file"><a href="../man/wind_sample_Rd.html">wind_sample.Rd</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>#&#39; A wind-rose shaped buffer function #&#39; #&#39; @description #&#39;
+`sum` creates a wind-rose based buffer shape. #&#39;  #&#39; @param Centre
+point of the buffer, must equal to true in: sf::st_is(point, “POINT”)
+#&#39; @param wind_frequency_df A wind frequency table, in the format
+provided by code{“openair::windRose(wind_sample)$data”} #&#39; @param
+Radius radius of the buffer (numeric). The radius of the largest sub-wedge
+of the wind-rose shaped buffer. #&#39; @param width_factor Scaling factor
+of the width of sub-wedges (numeric). Smaller number (&lt;1) emphasize
+less-dominant wind-directions, (&gt;1) emphasize dominant wind-directions. 
+#&#39; @keywords Wind-rose, wind, buffer #&#39; @export #&#39; @examples
+#&#39; example_point = sf::st_point(c(1,2)) #&#39; example_point =
+sf::st_sfc(example_point) #&#39;  #&#39; openair::windRose(wind_sample)
+-&gt; wind_sample_wind_rose #&#39; wind_sample_wind_rose$data -&gt;
+wind_frequency_df #&#39;  #&#39; plot(buffer_windrose(example_point,
+wind_frequency_df, radius = 100, width_factor = 0.5)) #&#39; @export</p>
+
+<p>buffer_windrose &lt;- function(point, wind_frequency_df, radius = 100,
+width_factor = 2){</p>
+
+<pre class="ruby"><span class="ruby-comment">#Error handlers for input type</span>
+<span class="ruby-keyword">if</span>(<span class="ruby-identifier">length</span>(<span class="ruby-identifier">point</span>) <span class="ruby-operator">!=</span> <span class="ruby-value">1</span>){
+  <span class="ruby-identifier">stop</span>(<span class="ruby-string">&quot;Input one point of class sf&quot;</span>)
+}
+
+<span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">sf</span><span class="ruby-operator">::</span><span class="ruby-identifier">st_is</span>(<span class="ruby-identifier">point</span>, <span class="ruby-string">&quot;POINT&quot;</span>)){
+  <span class="ruby-identifier">stop</span>(<span class="ruby-string">&quot;Input one point of class sf&quot;</span>)
+}    
+
+<span class="ruby-identifier">mean_ws</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">as</span>.<span class="ruby-identifier">numeric</span>(<span class="ruby-identifier">unique</span>(<span class="ruby-identifier">wind_frequency_df</span><span class="ruby-identifier">$panel</span>.<span class="ruby-identifier">fun</span>))
+
+<span class="ruby-comment">#function starts</span>
+
+<span class="ruby-keyword">for</span> (<span class="ruby-identifier">i</span> <span class="ruby-keyword">in</span> <span class="ruby-value">1</span><span class="ruby-operator">:</span><span class="ruby-identifier">nrow</span>(<span class="ruby-identifier">wind_frequency_df</span>)){
+<span class="ruby-comment">#reconstruct the values dynamic wedge needs to from windrose</span>
+  <span class="ruby-comment">##degree</span>
+  <span class="ruby-identifier">wind_frequency_df</span><span class="ruby-identifier">$wd</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">degree</span>
+
+  <span class="ruby-comment">##skip if degee is error</span>
+  <span class="ruby-keyword">if</span>(<span class="ruby-identifier">degree</span> <span class="ruby-operator">==</span> <span class="ruby-value">-999</span>){
+    <span class="ruby-keyword">next</span>()}
+
+  <span class="ruby-comment">##degree_width, fix so that wedges are connected is at 16, at 15 they are slightly not touching</span>
+  <span class="ruby-identifier">round</span>(<span class="ruby-identifier">wind_frequency_df</span><span class="ruby-identifier">$Interval3</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">*</span> <span class="ruby-identifier">width_factor</span>) <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">degree_width</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-identifier">degree_width</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">16</span>){<span class="ruby-identifier">degree_width</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-value">16</span>}
+
+  (<span class="ruby-identifier">wind_frequency_df</span><span class="ruby-identifier">$freqs</span>[<span class="ruby-identifier">i</span>] <span class="ruby-operator">/</span> <span class="ruby-identifier">max</span>(<span class="ruby-identifier">wind_frequency_df</span><span class="ruby-identifier">$freqs</span>)) <span class="ruby-operator">*</span> (<span class="ruby-identifier">radius</span>) <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span>  <span class="ruby-identifier">wedge_radius</span> <span class="ruby-comment">#in m</span>
+
+<span class="ruby-comment">#create the wedge</span>
+  <span class="ruby-identifier">buffer_wedge</span>(<span class="ruby-identifier">point</span>, <span class="ruby-identifier">wedge_radius</span>, <span class="ruby-identifier">degree</span>, <span class="ruby-identifier">degree_width</span>) <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">wedge_sf</span>
+
+<span class="ruby-comment">#union the wedges  </span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">exists</span>(<span class="ruby-string">&quot;wedge_all_sf&quot;</span>)){<span class="ruby-identifier">wedge_all_sf</span> <span class="ruby-operator">&lt;</span><span class="ruby-operator">-</span> <span class="ruby-identifier">wedge_sf</span>; <span class="ruby-keyword">next</span>()}
+
+  <span class="ruby-identifier">sf</span><span class="ruby-operator">::</span><span class="ruby-identifier">st_union</span>(<span class="ruby-identifier">wedge_all_sf</span>, <span class="ruby-identifier">wedge_sf</span>) <span class="ruby-operator">-</span><span class="ruby-operator">&gt;</span> <span class="ruby-identifier">wedge_all_sf</span>
+}
+
+<span class="ruby-keyword">return</span>(<span class="ruby-identifier">wedge_all_sf</span>)
+</pre>
+
+<p>}</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

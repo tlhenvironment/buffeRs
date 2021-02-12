@@ -21,12 +21,13 @@ buffer_windrose(point, wind_frequency_df, radius = 100, width_factor = 2)
 \examples{
 example_point = sf::st_point(c(1,2))
 example_point = sf::st_sfc(example_point)
+example_point = sf::st_sf(example_point)
 
 openair::windRose(wind_sample) -> wind_sample_wind_rose
 wind_sample_wind_rose$data -> wind_frequency_df
 
-plot(buffer_windrose(example_point, wind_frequency_df, radius = 100, width_factor = 0.5))
+buffer_windrose(example_point, wind_frequency_df, 100, 0.5) -> windrose_shaped_buffer
+plot(windrose_shaped_buffer)
 }
-\keyword{Wind-rose,}
-\keyword{buffer}
-\keyword{wind,}
+\keyword{Wind-rose}
+\keyword{wind}

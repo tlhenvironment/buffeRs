@@ -13,13 +13,18 @@ buffer_circle(point, radius, ...)
 
 \item{...}{Further arguments to give to sf::st_buffer()}
 }
+\value{
+An object of class sf
+}
 \description{
 Creates a circular buffer. Wrapper around sf::st_buffer()
 }
 \examples{
 example_point = sf::st_point(c(1,2))
 example_point = sf::st_sfc(example_point)
+example_point = sf::st_sf(example_point)
 
-plot(buffer_circle(example_point, 200))
+buffer_circle(example_point, 200) -> circular_buffer
+plot(circular_buffer)
 }
-\keyword{cats}
+\keyword{circle}

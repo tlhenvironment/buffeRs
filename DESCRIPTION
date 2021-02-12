@@ -1,6 +1,6 @@
 Package: buffeRs
-Title: Buffer generation for spatial models
-Version: 0.8
+Title: Buffer Generation for Spatial Models
+Version: 0.2
 Date: 2021-02-01
 Authors@R: 
     person(given = "Tilman Leo",
@@ -8,7 +8,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "tlh@ust.hk",
            comment = c(ORCID = "0000-0002-4372-8750"))
-Description: buffeRs generates simple feature geometries e.g. for the use as buffers in model-building.
+Description: Generates non-circular simple feature geometries e.g. for the use as buffers in model-building.
 Imports:
     sf
 Suggests:

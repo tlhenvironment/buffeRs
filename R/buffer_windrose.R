@@ -7,32 +7,30 @@
 #' @param wind_frequency_df A wind frequency table, in the format provided by \code{"openair::windRose(wind_sample)$data"}
 #' @param radius radius of the buffer (numeric). The radius of the largest sub-wedge of the wind-rose shaped buffer.
 #' @param width_factor Scaling factor of the width of sub-wedges (numeric). Smaller number (<1) emphasize less-dominant wind-directions, (>1) emphasize dominant wind-directions. 
-#' @keywords Wind-rose, wind, buffer
+#' @keywords Wind-rose wind
 #' @export
 #' @examples
 #' example_point = sf::st_point(c(1,2))
 #' example_point = sf::st_sfc(example_point)
+#' example_point = sf::st_sf(example_point)
 #' 
 #' openair::windRose(wind_sample) -> wind_sample_wind_rose
 #' wind_sample_wind_rose$data -> wind_frequency_df
 #' 
-#' plot(buffer_windrose(example_point, wind_frequency_df, radius = 100, width_factor = 0.5))
+#' buffer_windrose(example_point, wind_frequency_df, 100, 0.5) -> windrose_shaped_buffer
+#' plot(windrose_shaped_buffer)
 #' @export
 
 buffer_windrose <- function(point, wind_frequency_df, radius = 100, width_factor = 2){
   
   #Error handlers for input type
-  if(length(point) != 1){
-    stop("Input one point of class sf")
-  }
+  if(!("sf" %in% class(point))) stop("Input one point of class sf")
+  if(nrow(point) != 1) stop("Input one point of class sf")
+  if(!sf::st_is(point, "POINT")) stop("Input one point of class sf")
 
-  if(!sf::st_is(point, "POINT")){
-    stop("Input one point of class sf")
-  }    
-
-  mean_ws <- as.numeric(unique(wind_frequency_df$panel.fun))
 
   #function starts
+  mean_ws <- as.numeric(unique(wind_frequency_df$panel.fun))
   
   for (i in 1:nrow(wind_frequency_df)){
   #reconstruct the values dynamic wedge needs to from windrose

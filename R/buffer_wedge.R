@@ -10,21 +10,18 @@
 #' @examples
 #' example_point = sf::st_point(c(1,2))
 #' example_point = sf::st_sfc(example_point)
-#' 
-#' plot(buffer_wedge(example_point, 200, 90, 45))
+#' example_point = sf::st_sf(example_point)
+
+#' buffer_wedge(example_point, 200, 90, 45) -> wedge_shaped_buffer
+#' plot(wedge_shaped_buffer)
 #' @export
 
 buffer_wedge <- function(point, radius, degree, degree_width){
 
-# browser()
   #Error handlers for input type
-  if(length(point) != 1){
-    stop("Input one point of class sf")
-  }
-
-  if(!sf::st_is(point, "POINT")){
-    stop("Input one point of class sf")
-  }
+  if(!("sf" %in% class(point))) stop("Input one point of class sf")
+  if(nrow(point) != 1) stop("Input one point of class sf")
+  if(!sf::st_is(point, "POINT")) stop("Input one point of class sf")
 
   if(!is.numeric(degree) || degree < 0 || degree > 360){
     stop("Input degree as numeric between 0 and 360")
@@ -46,7 +43,8 @@ buffer_wedge <- function(point, radius, degree, degree_width){
   radians <- angles * 0.0174532925
   
   #create an empty matrix
-  pts_df = as.data.frame(matrix(nrow = 1+degree_width*2, ncol = 2))
+  pts_df = as.data.frame(matrix(nrow = 1 + degree_width * 20, ncol = 2))
+
   colnames(pts_df) <- c("x", "y")
   
   #set the starting points
