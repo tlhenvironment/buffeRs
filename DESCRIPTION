@@ -1,7 +1,7 @@
 Package: buffeRs
 Title: Buffer Generation for Spatial Models
-Version: 0.2
-Date: 2021-02-01
+Version: 0.21
+Date: 2021-02-12
 Authors@R: 
     person(given = "Tilman Leo",
            family = "Hohenberger",
@@ -9,6 +9,7 @@ Authors@R:
            email = "tlh@ust.hk",
            comment = c(ORCID = "0000-0002-4372-8750"))
 Description: Generates non-circular simple feature geometries e.g. for the use as buffers in model-building.
+URL: https://github.com/tlhenvironment/buffeRs
 Imports:
     sf
 Suggests:

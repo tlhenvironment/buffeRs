@@ -7,14 +7,14 @@
 buffer_circle(point, radius, ...)
 }
 \arguments{
-\item{point}{Cente point of the buffer, must equal to true in: sf::st_is(point, "POINT")}
+\item{point}{Cente point of the buffer, must equal to true in: \code{sf::st_is(point, "POINT")}}
 
 \item{radius}{Radius of the buffer (numeric)}
 
-\item{...}{Further arguments to give to sf::st_buffer()}
+\item{...}{Further arguments to give to \code{sf::st_buffer()}}
 }
 \value{
-An object of class sf
+An object of class \code{sfc_POLYGON}
 }
 \description{
 Creates a circular buffer. Wrapper around sf::st_buffer()

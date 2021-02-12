@@ -1,10 +1,11 @@
 #' A wedge Function
 #'
 #' Creates a wedge polygon 
-#' @param point Centre point of the buffer, must equal to true in: sf::st_is(point, "POINT")
+#' @param point Centre point of the buffer, must equal to true in: \code{sf::st_is(point, "POINT")}
 #' @param radius Radius of the buffer (numeric)
-#' @param degree The angle at which the wedge is centred (clockwise). Must be between 0 and 360 (numeric). 
-#' @param degree_width Width of the wedge. Must be between 0 and 360 (numeric). 
+#' @param degree The angle at which the wedge is centred (clockwise). Must be between 0 and 360 (numeric) 
+#' @param degree_width Width of the wedge. Must be between 0 and 360 (numeric) 
+#' @return An object of class \code{sfc_POLYGON}
 #' @keywords wedge
 #' @export
 #' @examples

@@ -1,10 +1,10 @@
 #' A circule function
 #'
 #' Creates a circular buffer. Wrapper around sf::st_buffer()
-#' @param point Cente point of the buffer, must equal to true in: sf::st_is(point, "POINT")
+#' @param point Cente point of the buffer, must equal to true in: \code{sf::st_is(point, "POINT")}
 #' @param radius Radius of the buffer (numeric)
-#' @param ... Further arguments to give to sf::st_buffer()
-#' @return An object of class sf
+#' @param ... Further arguments to give to \code{sf::st_buffer()}
+#' @return An object of class \code{sfc_POLYGON}
 #' @keywords circle
 #' @export
 #' @examples 

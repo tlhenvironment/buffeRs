@@ -7,13 +7,16 @@
 buffer_windrose(point, wind_frequency_df, radius = 100, width_factor = 2)
 }
 \arguments{
-\item{point}{Centre point of the buffer, must equal to true in: sf::st_is(point, "POINT")}
+\item{point}{Centre point of the buffer, must equal to true in: \code{sf::st_is(point, "POINT")}}
 
 \item{wind_frequency_df}{A wind frequency table, in the format provided by \code{"openair::windRose(wind_sample)$data"}}
 
-\item{radius}{radius of the buffer (numeric). The radius of the largest sub-wedge of the wind-rose shaped buffer.}
+\item{radius}{radius of the buffer (numeric). The radius of the largest sub-wedge of the wind-rose shaped buffer}
 
 \item{width_factor}{Scaling factor of the width of sub-wedges (numeric). Smaller number (<1) emphasize less-dominant wind-directions, (>1) emphasize dominant wind-directions.}
+}
+\value{
+An object of class \code{sfc_POLYGON}
 }
 \description{
 \code{buffer_windrose} creates a wind-rose based buffer shape.

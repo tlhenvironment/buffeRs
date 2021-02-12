@@ -7,11 +7,14 @@
 buffer_semicircle(point, radius, degree)
 }
 \arguments{
-\item{point}{Centre point of the buffer, must equal to true in: sf::st_is(point, "POINT")}
+\item{point}{Centre point of the buffer, must equal to true in: \code{sf::st_is(point, "POINT")}}
 
 \item{radius}{Radius of the buffer (numeric)}
 
-\item{degree}{The angle at which the wedge is centred (clockwise). Must be between 0 and 360 (numeric).}
+\item{degree}{The angle at which the wedge is centred (clockwise). Must be between 0 and 360 (numeric)}
+}
+\value{
+An object of class \code{sfc_POLYGON}
 }
 \description{
 Creates a semicircular polygon, wrapper around \code{buffer_wedge(point, radius, degree, degree_width = 45)}
