@@ -4,3 +4,6 @@ buffeRs generates non-circular simple feature geometries e.g. for the use as buf
 - `buffer_wedge()` creates a wedge-shaped geometry
 - `buffer_semicircle()` creates a semicircular geometry
 - `buffer_windrose()` creates a windrose shaped geometry
+
+# Installation
+Install with `devtools::install_github("tlhenvironment/buffeRs")`
