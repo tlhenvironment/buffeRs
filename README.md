@@ -6,4 +6,6 @@ buffeRs generates non-circular simple feature geometries e.g. for the use as buf
 - `buffer_windrose()` creates a windrose shaped geometry
 
 # Installation
-Install with `devtools::install_github("tlhenvironment/buffeRs")`
+Install from CRAN with `install.packages("buffeRs")`
+or from Github with `devtools::install_github("tlhenvironment/buffeRs")`
+
