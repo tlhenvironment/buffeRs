@@ -61,7 +61,7 @@ buffer_wedge <- function(point, radius, degree, degree_width){
   pts_df[nrow(pts_df),2] <- radius*sin(-radians[2]) + point_coordinates[2]
   
   #set all intermediate points
-  for(i in 3:nrow(pts_df)-1){
+  for(i in 3:(nrow(pts_df)-1)){
     pts_df[i,1] <- radius*cos(-radians[1] * (nrow(pts_df) - i)/nrow(pts_df) - radians[2] * (i / nrow(pts_df))) + point_coordinates[1]
     pts_df[i,2] <- radius*sin(-radians[1] * (nrow(pts_df) - i)/nrow(pts_df) - radians[2] * (i / nrow(pts_df))) + point_coordinates[2]
   }
