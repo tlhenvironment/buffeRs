@@ -4,6 +4,7 @@ buffeRs generates non-circular simple feature geometries e.g. for the use as buf
 - `buffer_wedge()` creates a wedge-shaped geometry
 - `buffer_semicircle()` creates a semicircular geometry
 - `buffer_windrose()` creates a windrose shaped geometry
+- `buffer_rectangle()` creates a rectangular shaped geometry
 
 # Installation
 Install from CRAN with `install.packages("buffeRs")`

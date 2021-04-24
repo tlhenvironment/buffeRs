@@ -10,9 +10,9 @@
 #' @export
 #' @references Rotation function taken from Edzer Pebesma sf package vignette \url{https://r-spatial.github.io/sf/articles/sf3.html}
 #' @examples
-# ' example_point = sf::st_point(c(1,2))
-# ' example_point = sf::st_sfc(example_point)
-
+#' example_point = sf::st_point(c(1,2))
+#' example_point = sf::st_sfc(example_point)
+#' example_point = sf::st_sf(example_point)
 #' buffer_rectangle(example_point, 200, 90, 22) -> rectangular_shaped_buffer
 #' plot(rectangular_shaped_buffer)
 #' @export

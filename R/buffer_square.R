@@ -8,11 +8,11 @@
 #' @keywords square
 #' @export
 #' @examples
-# ' example_point = sf::st_point(c(1,2))
-# ' example_point = sf::st_sfc(example_point)
-
-#' buffer_square(example_point, 90, 22) -> rectangular_shaped_buffer
-#' plot(rectangular_shaped_buffer)
+#' example_point = sf::st_point(c(1,2))
+#' example_point = sf::st_sfc(example_point)
+#' example_point = sf::st_sf(example_point)
+#' buffer_square(example_point, 90, 22) -> square_shaped_buffer
+#' plot(square_shaped_buffer)
 #' @export
 
 buffer_square <- function(point, length, degree = 0){
