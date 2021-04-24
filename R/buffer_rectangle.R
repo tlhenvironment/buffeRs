@@ -8,6 +8,7 @@
 #' @return An object of class \code{sfc_POLYGON}
 #' @keywords rectangle
 #' @export
+#' @references Rotation function taken from Edzer Pebesma sf package vignette \url{https://r-spatial.github.io/sf/articles/sf3.html}
 #' @examples
 # ' example_point = sf::st_point(c(1,2))
 # ' example_point = sf::st_sfc(example_point)
