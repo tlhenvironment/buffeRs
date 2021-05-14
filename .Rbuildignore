@@ -1,2 +1,2 @@
-doc
 cran_comments.md
+^doc$
