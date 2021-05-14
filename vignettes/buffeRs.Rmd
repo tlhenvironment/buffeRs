@@ -15,6 +15,8 @@ buffeRs will create non-standard buffer geometries around an input point (create
 1.  `buffer_semicircle()` creates a semicircular geometry
 1.  `buffer_windrose()` creates a windrose shaped geometry
 1.  `buffer_rectangle()` creates a rectangular shaped geometry
+1.  `buffer_square()` creates a square shaped geometry
+
 
 One example would be to build a wedge-shaped buffer with `buffer_wedge()`.
 
