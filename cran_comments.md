@@ -1,4 +1,4 @@
-Update to version 0.27 (14/05/2021):
+Update to version 0.30 (14/05/2021):
 -fixed a bug in wedge_buffer() that moved the centre of the wedge slightly
 -added buffer_rectangle() and buffer_square() functions
 -added overview vignette

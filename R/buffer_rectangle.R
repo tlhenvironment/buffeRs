@@ -45,10 +45,10 @@ buffer_rectangle <- function(point, x_length, y_length, degree = 0){
   pts_df[2,2] <- (point_coordinates[2] + y_length / 2)
 
   pts_df[3,1] <- (point_coordinates[1] - x_length / 2) 
-  pts_df[3,2] <- (point_coordinates[1] - y_length / 2) 
+  pts_df[3,2] <- (point_coordinates[2] - y_length / 2) 
 
   pts_df[4,1] <- (point_coordinates[1] + x_length / 2) 
-  pts_df[4,2] <- (point_coordinates[1] - y_length / 2) 
+  pts_df[4,2] <- (point_coordinates[2] - y_length / 2) 
     
   #convert to sf
   pts_sf <- sf::st_as_sf(pts_df, coords = c("x", "y"), crs = sf::st_crs(point))
